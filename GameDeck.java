@@ -19,9 +19,9 @@ public class GameDeck {
 
     }
 
-    public void printDeck(){
+      public void printDeck(){
         for(Card c:deck){
-            System.out.println(c);
+            System.out.println("colour: " +c.getColour()+ "  value: "+c.getValue());
         }
 
     }
