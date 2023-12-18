@@ -4,6 +4,9 @@ public class Card {
     private String colour;
     private int value;
     private int sign;
+    private int sign1;
+    private int sign2;
+    private int doublecard;
 
     public Card(String colour,int value){
         setColour(colour);
@@ -15,6 +18,15 @@ public class Card {
         setValue(value);
         setSign(sign);
 
+    }
+
+    public Card(int sign1,int sign2){     //flip card
+        this.sign1=sign1; //1
+        this.sign2=sign2; //-1
+    }
+
+    public Card(int doublecard){
+        this.doublecard=doublecard;
     }
 
 
@@ -34,5 +46,9 @@ public class Card {
 
 
 
+
+
 }
+
+
 
