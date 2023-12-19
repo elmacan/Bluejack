@@ -4,16 +4,21 @@ public class Test{
         Player p=new Player();
 
         //gd.shuffleGameDeck();
-
+        System.out.println("KARILMAMIŞ GAME DECK");
         gd.printGameDeck();
+        System.out.println("----------------------------------");
         p.createPlayerCards();
         p.fromGameDeckForCpu(gd);
-        System.out.println("before shuffle");
-        p.printPlayerDeck();
+        System.out.println("before shuffle CPU PLAYER DECK");
 
-        System.out.println("after shuffle");
+        p.printPlayerDeck();
+        System.out.println("----------------------------------");
+        System.out.println("after shuffle CPU PLAYER DECK");
           p.shufflePlayerDecks();
           p.printPlayerDeck();
+        System.out.println("----------------------------------");
+        System.out.println("PLAYER HANDS");
+        p.pickForPlayerHands();
 
     }
 }

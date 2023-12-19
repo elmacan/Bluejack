@@ -72,6 +72,18 @@ public class Player {
 
 
     }
+	
+	public void pickForPlayerHands(){
+            for(int i=0;i<4;i++){
+                playerHands[i]=playerCards[i];
+                System.out.println("colour: " + playerHands[i].getColour() + "      value: " + playerHands[i].getValue() + " sign: " + playerHands[i].getSign()+"    special: "+playerHands[i].getSpecial());
+            }
+
+    }
+
+
+
+
 
 
     public void printPlayerDeck() {
