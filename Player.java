@@ -1,6 +1,6 @@
 import java.util.Random;
 public class Player {
-    private Card[] playerCards=new Card[5];
+    private Card[] playerCards=new Card[10];
     //Player hand
     //Player board
 
@@ -8,6 +8,7 @@ public class Player {
         //String[] colours={"blue","yellow","red","green"};
 
     }
+
 
     public void createPlayerCards() {
         String[] colours = {"blue", "yellow", "red", "green"};
@@ -30,8 +31,8 @@ public class Player {
                 int p = r.nextInt(10);
                 System.out.println("%"+percent[p]+"chance ");
                     if (percent[p] == 2) {
-                            playerCards[3] = new Card(1, -1);
-                            playerCards[4]= new Card(2);
+                            playerCards[3] = new Card(11);  //flip card
+                            playerCards[4]= new Card(2);   //double card     çarpım olarak lazım ikisi de
                     }
                     if(percent[p]==8) {
 
@@ -50,17 +51,14 @@ public class Player {
 
 
 
-
-
-
-
-
         public void printPlayerDeck() {
             for (Card a : playerCards) {
-                System.out.println("colour: " + a.getColour() + "      value: " + a.getValue() + " sign: " + a.getSign());
+                System.out.println("colour: " + a.getColour() + "      value: " + a.getValue() + " sign: " + a.getSign()+"    special: "+a.getSpecial());
             }
 
         }
 
 }
+
+
 
