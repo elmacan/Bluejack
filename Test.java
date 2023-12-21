@@ -35,7 +35,12 @@ public class Test{
         System.out.println("-----------------------------------");
         p2.pickForPlayerHands();
 		System.out.println("-------------------------------------");
+        System.out.println("AFTER DEALİNG");
         gd.gameDeckAfterDealing();
+        System.out.println("--------------------------------------");
+        gd.getCardFromTop();
+
+
 
 
     }

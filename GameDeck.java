@@ -42,6 +42,19 @@ public class GameDeck {
         //System.out.println(deck[1].getColour());
 
     }
+	
+	
+	public void getCardFromTop(){
+        Card takenCard=newCards[0];
+        Card[] newCardss=new Card[this.newCards.length-1];
+        System.arraycopy(newCards,1,newCardss,0,newCardss.length);
+        newCards=newCardss;
+        System.out.println(" TAKEN CARD colour: " +takenCard.getColour()+ "  value: "+takenCard.getValue());
+        System.out.println("----------------------------------------");
+        for(Card c:newCards){
+            System.out.println("colour: " +c.getColour()+ "  value: "+c.getValue());
+        }
+    }
 
     //tek method haline getir
     public void shuffleGameDeck() {
