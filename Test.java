@@ -34,6 +34,8 @@ public class Test{
         p2.printPlayerDeck();
         System.out.println("-----------------------------------");
         p2.pickForPlayerHands();
+		System.out.println("-------------------------------------");
+        gd.gameDeckAfterDealing();
 
 
     }

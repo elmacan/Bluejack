@@ -2,6 +2,7 @@ import java.util.Random;
 public class GameDeck {
     private String[] colours = {"blue", "yellow", "red", "green"};
     private Card[] cards=new Card[40];
+	Card[] newCards=new Card[30];
 
 
 
@@ -21,6 +22,17 @@ public class GameDeck {
 
 
     }
+	public void gameDeckAfterDealing(){
+        //Card[] newCards=new Card[30];
+        for(int i=0;i<30;i++){
+            newCards[i]=this.cards[i+5];
+        }
+        for(Card c:newCards){
+            System.out.println("colour: " +c.getColour()+ "  value: "+c.getValue());
+        }
+
+    }
+
 
     public void printGameDeck(){
         for(Card c: getCards()){
