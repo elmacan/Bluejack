@@ -3,13 +3,28 @@ public class Test{
         GameDeck gd=new GameDeck();
         Player cpu=new Player();
         Player player=new Player();
-        Board b=new Board();
+        //Board b=new Board();
+        Board playerBoard=new Board(player);
+        Board cpuBoard=new Board(cpu);
 
+        gd.shuffleGameDeck();
 
+        cpu.createPlayerCards();    //gamdeck ten gelmeyen kısım
+        cpu.fromGameDeckForCpu(gd); //gamedeckten gelen 5 kart
+        cpu.shufflePlayerDecks();  //rastgele 4ünü seçmek için
+        cpu.pickForPlayerHands();  //elinde 4kart
+        cpu.printHand();
+        System.out.println();
 
+        player.createPlayerCards();
+        player.fromGameDeckForHuman(gd);
+        player.shufflePlayerDecks();
+        player.pickForPlayerHands();
+        player.printHand();
+		
+		
 
-
-        System.out.println("KARILMAMIŞ GAME DECK");
+        /*System.out.println("KARILMAMIŞ GAME DECK");
         gd.printGameDeck();
         System.out.println("----------------------------------");
         System.out.println("KARILMIŞ GAME DECK");
@@ -37,13 +52,13 @@ public class Test{
         player.shufflePlayerDecks();
         player.printPlayerDeck();
         System.out.println("-----------------------------------");
-        /*System.out.println("HUMAN HANDS");
+        System.out.println("HUMAN HANDS");
         player.pickForPlayerHands();
         System.out.println("-------------------------------------");
         System.out.println("AFTER DEALİNG");
         gd.gameDeckAfterDealing();
         System.out.println("--------------------------------------");
-        gd.getCardFromTop(); */
+        //gd.getCardFromTop();
 
 
         player.pickForPlayerHands();
@@ -52,3 +67,6 @@ public class Test{
         //System.out.println("0 ıncı kart"+player.getPlayerHands()[0].getColour()+player.getPlayerHands()[0].getValue()+player.getPlayerHands()[0].getSign());
 
         //b.addCardToBoard(player.getPlayerHands()[0]);
+        //b.addCardToBoard(gd.getCardFromTop());  */
+	}
+}
