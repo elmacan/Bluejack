@@ -1,8 +1,12 @@
 public class Test{
     public static void main(String[] args){
         GameDeck gd=new GameDeck();
-        Player p=new Player();
-        Player p2=new Player();
+        Player cpu=new Player();
+        Player player=new Player();
+        Board b=new Board();
+
+
+
 
 
         System.out.println("KARILMAMIŞ GAME DECK");
@@ -12,36 +16,39 @@ public class Test{
         gd.shuffleGameDeck();
         gd.printGameDeck();
         System.out.println("----------------------------------");
-        p.createPlayerCards();
-        p.fromGameDeckForCpu(gd);  //
+        cpu.createPlayerCards();
+        cpu.fromGameDeckForCpu(gd);  //
         System.out.println("before shuffle CPU PLAYER DECK");
-        p.printPlayerDeck();
+        cpu.printPlayerDeck();
         System.out.println("----------------------------------");
         System.out.println("after shuffle CPU PLAYER DECK");
-        p.shufflePlayerDecks();
-        p.printPlayerDeck();
+        cpu.shufflePlayerDecks();
+        cpu.printPlayerDeck();
         System.out.println("----------------------------------");
         System.out.println("CPU HANDS");
-        p.pickForPlayerHands();//içinde yazdırıyor
+        cpu.pickForPlayerHands();//içinde yazdırıyor
         System.out.println("----------------------------------");
-        p2.createPlayerCards();
-        p2.fromGameDeckForHuman(gd);
+        player.createPlayerCards();
+        player.fromGameDeckForHuman(gd);
         System.out.println("before shuffle HUMAN PLAYER DECK");
-        p2.printPlayerDeck();
+        player.printPlayerDeck();
         System.out.println("-----------------------------------");
         System.out.println("after shuffle HUMAN PLAYER DECK");
-        p2.shufflePlayerDecks();
-        p2.printPlayerDeck();
+        player.shufflePlayerDecks();
+        player.printPlayerDeck();
         System.out.println("-----------------------------------");
-        p2.pickForPlayerHands();
-		System.out.println("-------------------------------------");
+        /*System.out.println("HUMAN HANDS");
+        player.pickForPlayerHands();
+        System.out.println("-------------------------------------");
         System.out.println("AFTER DEALİNG");
         gd.gameDeckAfterDealing();
         System.out.println("--------------------------------------");
-        gd.getCardFromTop();
+        gd.getCardFromTop(); */
 
 
+        player.pickForPlayerHands();
 
 
-    }
-}
+        //System.out.println("0 ıncı kart"+player.getPlayerHands()[0].getColour()+player.getPlayerHands()[0].getValue()+player.getPlayerHands()[0].getSign());
+
+        //b.addCardToBoard(player.getPlayerHands()[0]);

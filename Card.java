@@ -2,7 +2,7 @@ public class Card {
     private String colour;
     private int value;
     private int sign;
-    private int special;
+    private int special; //double and flip card
 
     public Card(String colour,int value){
         setColour(colour);
@@ -21,8 +21,20 @@ public class Card {
         this.special=special;
     }
 
-    public void setColour(String colour){
-        this.colour=colour;
+    //yapamadım karıştı sonra uğraş
+    /*public void printDeck(Card[] deck){
+        for(Card c: deck){
+            System.out.println("colour: " + getColour() + "      value: " + getValue() + " sign: " + getSign()+"    special: "+getSpecial());
+
+        }
+    } */
+
+
+
+    public void setColour(String colour) {
+
+            this.colour = colour;
+
     }
     public void setValue(int value){
         this.value=value;
@@ -30,7 +42,9 @@ public class Card {
     public void setSign(int sign){this.sign=sign;}
 
     public String getColour(){
-        return colour;
+
+        return colour ;
+
     }
     public int getValue(){return value;}
     public int getSign(){return sign;}
@@ -44,8 +58,6 @@ public class Card {
     public void setSpecial(int special) {
         this.special = special;
     }
-}
-
 }
 
 

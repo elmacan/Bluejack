@@ -1,11 +1,12 @@
 import java.util.Random;
 public class GameDeck {
-    private String[] colours = {"blue", "yellow", "red", "green"};
+    private String[] colours = {"B", "Y", "R", "G"};
     private Card[] cards=new Card[40];
-	Card[] newCards=new Card[30];
+    Card[] newCards=new Card[30];  //oyunculara 5er kart dağıttıktan sonraki gamedeck in yeni hali
+    //sonra üstten kart çekilcek
 
 
-
+    //(her renk içi 10ar adet card oluşturuyor)
     public GameDeck(){
 
         //cards=new Card[40];
@@ -22,38 +23,14 @@ public class GameDeck {
 
 
     }
-	public void gameDeckAfterDealing(){
-        //Card[] newCards=new Card[30];
-        for(int i=0;i<30;i++){
-            newCards[i]=this.cards[i+5];
-        }
-        for(Card c:newCards){
-            System.out.println("colour: " +c.getColour()+ "  value: "+c.getValue());
-        }
-
-    }
-
 
     public void printGameDeck(){
         for(Card c: getCards()){
-            System.out.println("colour: " +c.getColour()+ "  value: "+c.getValue());
+            System.out.println("colour:"+c.getColour()+ " value:"+c.getValue());
 
         }
         //System.out.println(deck[1].getColour());
 
-    }
-	
-	
-	public void getCardFromTop(){
-        Card takenCard=newCards[0];
-        Card[] newCardss=new Card[this.newCards.length-1];
-        System.arraycopy(newCards,1,newCardss,0,newCardss.length);
-        newCards=newCardss;
-        System.out.println(" TAKEN CARD colour: " +takenCard.getColour()+ "  value: "+takenCard.getValue());
-        System.out.println("----------------------------------------");
-        for(Card c:newCards){
-            System.out.println("colour: " +c.getColour()+ "  value: "+c.getValue());
-        }
     }
 
     //tek method haline getir
@@ -71,6 +48,38 @@ public class GameDeck {
 
         }
     }
+
+
+
+
+        //oyunculara 5 er kart dağıttıktan sonraki yeni gamedeck in içine eski gamedeckteki kalan cardları atıyor
+    public void gameDeckAfterDealing(){
+        //Card[] newCards=new Card[30];
+        for(int i=0;i<30;i++){
+            newCards[i]=this.cards[i+5];
+        }
+        for(Card c:newCards){
+            System.out.println("colour:" +c.getColour()+ "  value:"+c.getValue());
+        }
+
+    }
+
+
+    //en üstten card çekiyor ve sürekli yeni deck oluşturuyor
+
+    public void getCardFromTop(){
+        Card takenCard=newCards[0];
+        Card[] newCardss=new Card[this.newCards.length-1];
+        System.arraycopy(newCards,1,newCardss,0,newCardss.length);
+        newCards=newCardss;
+        System.out.println(" TAKEN CARD c:" +takenCard.getColour()+ "  v:"+takenCard.getValue());
+        System.out.println("----------------------------------------");
+        for(Card c:newCards){
+            System.out.println("colour:" +c.getColour()+ "  value:"+c.getValue());
+        }
+    }
+
+
 
 
     public String[] getColours() {
