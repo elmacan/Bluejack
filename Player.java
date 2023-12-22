@@ -98,6 +98,23 @@ public class Player {
         }
 
     }
+	public void printHand(){
+        for(int i=0;i<playerHands.length;i++){
+            if(playerHands[i].getSpecial()==11){
+                System.out.print("(+/-) ");
+            }
+            else if(playerHands[i].getSpecial()==2){
+                System.out.print("(x2) ");
+            }
+            else if(playerHands[i].getSign()==-1){
+                System.out.print(playerHands[i].getColour()+"(-"+playerHands[i].getValue()+") ");
+            }
+            else{
+                System.out.print(playerHands[i].getColour()+"(+"+playerHands[i].getValue()+") ");
+            }
+        }
+    }
+	
 
     public Card[] getPlayerHands() {
         return playerHands;
