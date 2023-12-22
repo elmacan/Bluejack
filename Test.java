@@ -1,5 +1,8 @@
+import java.util.Scanner;
 public class Test{
     public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+
         GameDeck gd=new GameDeck();
         Player cpu=new Player();
         Player player=new Player();
@@ -13,16 +16,43 @@ public class Test{
         cpu.fromGameDeckForCpu(gd); //gamedeckten gelen 5 kart
         cpu.shufflePlayerDecks();  //rastgele 4ünü seçmek için
         cpu.pickForPlayerHands();  //elinde 4kart
-        cpu.printHand();
-        System.out.println();
+
 
         player.createPlayerCards();
         player.fromGameDeckForHuman(gd);
         player.shufflePlayerDecks();
         player.pickForPlayerHands();
+
+
+        System.out.print("COMPUTER HAND:  ");cpu.printHand();
+        System.out.println();
+        //System.out.println("COMPUTER BOARD: "+cpuBoard);
+        //System.out.println("YOUR BOARD:     "+playerBoard);
+        System.out.print("YOUR HAND:      ");player.printHand();
+        System.out.println();
+        System.out.print("choose:");
+        //System.out.println("BOARD: ");
+        int chosen= sc.nextInt();
+
+
+        switch (chosen){
+            case 0: playerBoard.addCardToBoard(player.getPlayerHands()[0]);
+            break;
+            case 1:playerBoard.addCardToBoard(player.getPlayerHands()[1]);
+            break;
+            case 2:playerBoard.addCardToBoard(player.getPlayerHands()[2]);
+            break;
+            case 3:playerBoard.addCardToBoard(player.getPlayerHands()[3]);
+            break;
+            default:
+                System.out.println("yanlış sayi");
+                break;
+        }
+        playerBoard.printBoard(player);
+        player.removeCardInPlayerHands(chosen);
+        System.out.println();
         player.printHand();
-		
-		
+
 
         /*System.out.println("KARILMAMIŞ GAME DECK");
         gd.printGameDeck();

@@ -13,19 +13,15 @@ public class Board {
 
 
     public void addCardToBoard(Card addedCard){
-        /*for(int i=0;i<9;i++){
-            if(getBoardCards()[i]==null){
-                getBoardCards()[i]=addedCard;
-            }
-        }*/
         int addedCardCounter=0;
         getBoardCards()[addedCardCounter]=addedCard;
         addedCardCounter++;
         }
-        //System.out.println(card.getColour()+card.getValue()+card.getSign()+card.getSpecial());
+        
 
 
-    public void printBoard(){
+    public void printBoard(Player p){
+        System.out.print("BOARD: ");
         for(int i=0;i<boardCards.length;i++){
             if(boardCards[i]==null)continue;
 
@@ -60,3 +56,8 @@ public class Board {
         this.boardCards = boardCards;
     }
 }
+
+
+
+
+
