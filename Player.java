@@ -179,6 +179,25 @@ public class Player {
 
         }
 	}
+	
+	public void cpuTurn(GameDeck gd){
+        while(cpuBoard.getTotalValue()<17){
+            int chosen=r.nextInt(4);
+            cpuBoard.addCardToBoard(getPlayerHands()[chosen]);
+            System.out.println("computer played card");
+            System.out.print("COMPUTER BOARD: ");
+            cpuBoard.printBoard();
+
+            removeCardInPlayerHands(chosen);
+
+            if(cpuBoard.getTotalValue()>20){
+                System.out.println("bust");
+                break;
+            }
+
+        }
+    }
+
 
 
     public Card[] getPlayerHands() {
