@@ -7,8 +7,8 @@ public class Test{
         Player cpu=new Player();
         Player player=new Player();
         //Board b=new Board();
-        Board playerBoard=new Board(player);
-        Board cpuBoard=new Board(cpu);
+        //Board playerBoard=new Board(player);
+        //Board cpuBoard=new Board(cpu);
 
         gd.shuffleGameDeck();
 
@@ -22,36 +22,14 @@ public class Test{
         player.fromGameDeckForHuman(gd);
         player.shufflePlayerDecks();
         player.pickForPlayerHands();
+		
+		gd.gameDeckAfterDealing();
+        player.playerTurn(gd);
+		
+		
+		
 
-
-        System.out.print("COMPUTER HAND:  ");cpu.printHand();
-        System.out.println();
-        //System.out.println("COMPUTER BOARD: "+cpuBoard);
-        //System.out.println("YOUR BOARD:     "+playerBoard);
-        System.out.print("YOUR HAND:      ");player.printHand();
-        System.out.println();
-        System.out.print("choose:");
-        //System.out.println("BOARD: ");
-        int chosen= sc.nextInt();
-
-
-        switch (chosen){
-            case 0: playerBoard.addCardToBoard(player.getPlayerHands()[0]);
-            break;
-            case 1:playerBoard.addCardToBoard(player.getPlayerHands()[1]);
-            break;
-            case 2:playerBoard.addCardToBoard(player.getPlayerHands()[2]);
-            break;
-            case 3:playerBoard.addCardToBoard(player.getPlayerHands()[3]);
-            break;
-            default:
-                System.out.println("yanlış sayi");
-                break;
-        }
-        playerBoard.printBoard(player);
-        player.removeCardInPlayerHands(chosen);
-        System.out.println();
-        player.printHand();
+        
 
 
         /*System.out.println("KARILMAMIŞ GAME DECK");

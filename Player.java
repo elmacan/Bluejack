@@ -1,10 +1,14 @@
 import java.util.Random;
+import java.util.Scanner;
 public class Player {
     private Card[] playerCards=new Card[10];
     private Card[] playerHands=new Card[4];
-    //Player board
-    //Player type
+    Board playerBoard=new Board();
+    Board cpuBoard=new Board();
 
+    Scanner sc=new Scanner(System.in);
+
+    //Player type  Player name
     public void createPlayerCards(){
         String[] colours = {"B", "Y", "R", "G"};
         int[] signs = {1, -1};
@@ -123,6 +127,58 @@ public class Player {
             }
         }
     }
+	
+	public void playerTurn(GameDeck gd){
+        boolean turnActive=true;
+        while (turnActive){
+            System.out.print("YOUR HAND: ");
+            printHand();
+            System.out.println();
+            System.out.println("Choose an action:");
+            System.out.println("0. Play card 1");
+            System.out.println("1. Play card 2");
+            System.out.println("2. Play card 3");
+            System.out.println("3. Play card 4");
+            System.out.println("4. Stand");
+            System.out.println("5. Draw a card");
+
+            int chosen=sc.nextInt();
+            switch (chosen){
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    playerBoard.addCardToBoard(getPlayerHands()[chosen]);
+                    System.out.print("YOUR BOARD: ");
+                    playerBoard.printBoard();
+                    System.out.println();
+                    removeCardInPlayerHands(chosen);
+                    turnActive=false;
+                    break;
+
+                case 4:
+                    System.out.println("you chose to stand");
+                    turnActive=false;
+                    break;
+
+                case 5:
+                    System.out.println("you drew a card");
+                    gd.getCardFromTop();
+                    break;
+
+                default:
+                    System.out.println("invalid input");
+                    break;
+            }
+
+           if(playerBoard.getTotalValue()>20){  //düzenlencek
+               System.out.println("bust");
+               turnActive=false;
+           }
+
+
+        }
+	}
 
 
     public Card[] getPlayerHands() {

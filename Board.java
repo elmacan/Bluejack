@@ -1,23 +1,19 @@
 public class Board {
     private Player p;
-    private Card[] boardCards=new Card[9];
-
-
-    public Board(Player p){   //player a göre board oluşturma
-        this.p=p;
-        //this.boardCards=boardCards;
-
-    }
-
-
+    private Card[] boardCards=new Card[9];  //tahtanın alabileceği max kart sayısı 9
+    private int totalValue=0;
 
 
     public void addCardToBoard(Card addedCard){
         int addedCardCounter=0;
-        getBoardCards()[addedCardCounter]=addedCard;
-        addedCardCounter++;
+        if (addedCardCounter < 9) {
+            boardCards[addedCardCounter] = addedCard;
+            totalValue+=addedCard.getValue();
+            addedCardCounter++;
+        } else {
+            System.out.println("Board is full. Cannot add more cards.");
         }
-        
+    }
 
 
     public void printBoard(Player p){
@@ -54,6 +50,15 @@ public class Board {
 
     public void setBoardCards(Card[] boardCards) {
         this.boardCards = boardCards;
+    }
+	
+	
+	   public int getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(int totalValue) {
+        this.totalValue = totalValue;
     }
 }
 
