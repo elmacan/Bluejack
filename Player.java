@@ -1,136 +1,134 @@
+
 import java.util.Random;
 import java.util.Scanner;
 public class Player {
-    private Card[] playerCards=new Card[10];
-    private Card[] playerHands=new Card[4];
-    Board playerBoard=new Board();
-    Board cpuBoard=new Board();
+    // fields
+    private String name;
+    private int setWinCount = 0;
+    private Card[] playerCards = new Card[10];
+    private Card[] playerHands = new Card[4];
+    private Card[] tempPlayerHands = new Card[4];
 
-    Scanner sc=new Scanner(System.in);
+    private Board playerBoard = new Board();
+    private Board cpuBoard = new Board();
 
-    //Player type  Player name
-    public void createPlayerCards(){
+    private Scanner sc = new Scanner(System.in);
+
+    public void createPlayerCards() {    //random ürettiğimiz 5 kart
         String[] colours = {"B", "Y", "R", "G"};
-        int[] signs = {1, -1};
-        Random r = new Random(System.currentTimeMillis());
+        Random random = new Random(System.currentTimeMillis());
 
-
+        //ilk 3kart için
         for (int i = 0; i < 4; i++) {
-            int n = r.nextInt(6) + 1;
-            int c = r.nextInt(4);
-            String rc = colours[c];
-            int s = r.nextInt(2);
-            int rs = signs[s];
-            getPlayerCards()[i] = new Card(rc, n, rs);
+            int randomValue = random.nextInt(6) + 1;    //rastgele card value'su 1den 6ya
+            int randomIndex = random.nextInt(4);       //rastgele index seçiyor colours dizisi için
+            String randomColor = colours[randomIndex];           //içindeki rengi atıyor
+            int randomSignIndex = random.nextInt(2);      //pozitif ya da negatif olmasını seçiyor
+            getPlayerCards()[i] = new Card(randomColor, randomValue, isRandomBooleanPositive(randomSignIndex));   //sonuç olarak rastgele ürettiği özellik değerlerini kart a atıyor
         }
 
-        //create special card
-        int[] percent={8,8,8,8,8,8,8,8,2,2};
-        for(int i=3;i<=4;i++) {
-            int p = r.nextInt(10);
-            System.out.println("%"+percent[p]+"chance ");
-            if (percent[p] == 2) {
-                getPlayerCards()[3] = new Card(11);  //flip card
-                getPlayerCards()[4]= new Card(2);   //double card     çarpım olarak lazım ikisi de
+        String intString = "5";
+        int intValue = Integer.parseInt(intString);
+
+        //geri kalan 2kart
+        int[] percent = {8, 8, 8, 8, 8, 8, 8, 8, 2, 2};
+        for (int i = 3; i <= 4; i++) {
+            int randomPercentage = random.nextInt(10);
+            //System.out.println("%"+percent[p]+"0 chance ");
+
+            if (percent[randomPercentage] == 2) {   //create special card
+                System.out.println("you are lucky!");
+                getPlayerCards()[3] = new Card(11);  //flip card için rastgele bir değer atadım sonra ayarlancak
+                getPlayerCards()[4] = new Card(2);   //double card
             }
-            if(percent[p]==8) {
-
-                int n = r.nextInt(6) + 1;
-                int c = r.nextInt(4);
-                String rc = colours[c];
-                int s = r.nextInt(2);
-                int rs = signs[s];
-                getPlayerCards()[i] = new Card(rc, n, rs);
-
+            if (percent[randomPercentage] == 8) {   //diğer ürettiği kartlardan tekrar
+                int randomValue = random.nextInt(6) + 1;
+                int randomIndex = random.nextInt(4);
+                String randomColor = colours[randomIndex];
+                int randomSignIndex = random.nextInt(2);
+                getPlayerCards()[i] = new Card(randomColor, randomValue, isRandomBooleanPositive(randomSignIndex));
             }
         }
-
     }
 
-    public void fromGameDeckForHuman(GameDeck gd){   //alttan alınan kısım oyuncuya verdiğimiz
-        //gd.printGameDeck();
-        for(int i=5;i<10;i++){
-            getPlayerCards()[i]=gd.getCards()[i+30];
-        }
-
+    // randomSignIndex deger 0 ise true, degilse false
+    private boolean isRandomBooleanPositive(int randomSignIndex) {
+        return randomSignIndex == 0;
     }
 
-    public void fromGameDeckForCpu(GameDeck gd){    //üstten alınan kısım bilgisayara verdiğimiz
-        //gd.printGameDeck();
-        int j=0;
-        for(int i=5;i<10;i++){
-            getPlayerCards()[i]=gd.getCards()[j];
+    public void fromGameDeckForHuman(GameDeck gd) {   //alttan alınan kısım oyuncuya verdiğimiz    gamedeckten gelen 5kart
+        for (int i = 5; i < 10; i++) {
+            getPlayerCards()[i] = gd.getCards()[i + 30];
+        }
+    }
+
+    public void fromGameDeckForCpu(GameDeck gd) {    //üstten alınan kısım bilgisayara verdiğimiz  gamedeckten gelen 5kart
+        int j = 0;
+        for (int i = 5; i < 10; i++) {
+            getPlayerCards()[i] = gd.getCards()[j];
             j++;
         }
-
     }
 
-    public void shufflePlayerDecks(){            //shuffle yaptıktan sonra ilk dördünü almak =rastgele 4ünü seçmek
-        for (int i = 0; i <10; i++) {
-            Random r=new Random();
-            int ri=r.nextInt(i+1); // random 0 to i    nextInt(100) 0,1,....99
-            Card temp= getPlayerCards()[i];
-            getPlayerCards()[i]= getPlayerCards()[ri];       //swap
-            getPlayerCards()[ri]=temp;
+    public void shufflePlayerDecks() {            //shuffle yaptıktan sonra ilk dördünü almak =rastgele 4ünü seçmek
+        for (int i = 0; i < 10; i++) {
+            Random r = new Random();
+            int ri = r.nextInt(i + 1); // random 0 to i    nextInt(100) 0,1,....99
+            Card temp = getPlayerCards()[i];
+            getPlayerCards()[i] = getPlayerCards()[ri];       //swap
+            getPlayerCards()[ri] = temp;
 
         }
-
-
     }
 
-        public void pickForPlayerHands(){
-            for(int i=0;i<4;i++){
-                getPlayerHands()[i]= getPlayerCards()[i];
-                //if(getPlayerHands()[i].getColour()==null) System.out.println("value: " + getPlayerHands()[i].getValue() + " sign: " + getPlayerHands()[i].getSign()+"    special: "+ getPlayerHands()[i].getSpecial());
-                System.out.println("colour: " + playerHands[i].getColour() + "      value: " + playerHands[i].getValue() + " sign: " + playerHands[i].getSign()+"    special: "+playerHands[i].getSpecial());
-            }
-
+    public void pickForPlayerHands() {   //cardlardan rastgele 4ünü eline alıyor
+        for (int i = 0; i < 4; i++) {
+            getPlayerHands()[i] = getPlayerCards()[i];
+            //System.out.println("colour: " + playerHands[i].getColour() + "      value: " + playerHands[i].getValue() + " sign: " + playerHands[i].getSign()+"    special: "+playerHands[i].getSpecial());
         }
 
-
-
-
-
-
-
+    }
 
 
     public void printPlayerDeck() {
         for (Card a : getPlayerCards()) {
-
-            System.out.println("colour:" + a.getColour() + " value:" + a.getValue() + " sign:" + a.getSign()+"  special:"+a.getSpecial());
+            System.out.println(a);
+//            System.out.println("colour:" + a.getColour() + " value:" + a.getValue() + " sign:" + a.getSign() + "  special:" + a.getSpecial());
         }
 
     }
-	public void removeCardInPlayerHands(int chosen){
-            getPlayerHands()[chosen].setValue(0);
+    //bir sonraki tur tahtayı yazdırırken bu kartı içini sıfırlamış olarak yazdırıyor düzeltemedim??????????????????????????
+    public void removeCardInPlayerHands(int chosen) {   //kartı ın yerine ___ yazdırıyor attığını göstermek için
+                                                        //elindeki kartlar için yeni bir dizi üretip kopyalamadım
 
-        }
+        getPlayerHands()[chosen].setValue(0);
 
 
-    public void printHand(){
-        for(int i=0;i<playerHands.length;i++){
-            if(playerHands[i].getSpecial()==11){
+    }
+
+
+    public void printHand() {
+        for (int i = 0; i < playerHands.length; i++) {
+            if (playerHands[i].getSpecial() == 11) {
                 System.out.print("(+/-) ");
-            }
-            else if(playerHands[i].getSpecial()==2){
+            } else if (playerHands[i].getSpecial() == 2) {
                 System.out.print("(x2) ");
-            }
-            else if(playerHands[i].getValue()==0){
+            } else if (playerHands[i].getValue() == 0) {
                 System.out.print("__ ");
-            }
-            else if(playerHands[i].getSign()==-1){
-                System.out.print(playerHands[i].getColour()+"(-"+playerHands[i].getValue()+") ");
-            }
-            else{
-                System.out.print(playerHands[i].getColour()+"(+"+playerHands[i].getValue()+") ");
+            } else if (playerHands[i].isPositiveSign()) {
+                System.out.print(playerHands[i].getColour() + "(+" + playerHands[i].getValue() + ") ");
+            } else {
+                System.out.print(playerHands[i].getColour() + "(-" + playerHands[i].getValue() + ") ");
             }
         }
     }
-	
-	public void playerTurn(GameDeck gd){
-        boolean turnActive=true;
-        while (turnActive){
+
+
+    //düzenlencek olan ana kısım
+    //kartların gerçek puanları düzenlencek
+    public void playerTurn(GameDeck gd) {
+        boolean turnActive = true;
+        while (turnActive) {
             System.out.print("YOUR HAND: ");
             printHand();
             System.out.println();
@@ -142,31 +140,51 @@ public class Player {
             System.out.println("4. Stand");
             System.out.println("5. Draw a card");
 
-            int chosen=sc.nextInt();
-            switch (chosen){
+            boolean numberIsInvalid = true;
+            int chosen = 0;
+            do {
+                System.out.println("Enter number between 1 and 10: ");
+                String number = sc.nextLine();
+                try {
+                    chosen = Integer.parseInt(number);
+                    if (chosen < 1 || chosen > 10) {
+                        System.out.println("You have entered a number which is NOT between 1 and 10!: " + number);
+                        System.out.println("Please try again: ");
+                    } else {
+                        numberIsInvalid = false;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("You have entered an invalid number!: " + number);
+                    System.out.println("Please try again: ");
+                }
+            } while(numberIsInvalid);
+            
+            switch (chosen) {
                 case 0:
                 case 1:
                 case 2:
                 case 3:
-                    getPlayerBoard().addCardToBoard(getPlayerHands()[chosen]);
+
+                    getPlayerBoard().addCardToBoard(playerHands[chosen]);
                     System.out.print("YOUR BOARD: ");
                     getPlayerBoard().printBoard();
                     System.out.println();
                     removeCardInPlayerHands(chosen);
-                    turnActive=false;
+
+                    turnActive = false;
                     break;
 
                 case 4:
                     System.out.println("you chose to stand");
-                    turnActive=false;
+                    turnActive = false;
                     break;
 
                 case 5:
                     System.out.println("you drew a card");
                     getPlayerBoard().addCardToBoard(gd.getCardFromTop());
-                    if(getPlayerBoard().getTotalValue()>20){  //düzenlencek
+                    if (getPlayerBoard().getTotalValue() > 20) {
                         System.out.println("bust");
-                        turnActive=false;
+                        turnActive = false;
                     }
                     break;
 
@@ -176,39 +194,30 @@ public class Player {
             }
 
 
-
-
         }
 
     }
-
-
-    public void cpuTurn(GameDeck gd){
-        boolean turnActive=true;
-        while(!turnActive) {
+    //düzenlencek olan ana kısım
+    public void cpuTurn(GameDeck gd) {
+        boolean turnActive = true;
+        while (turnActive) {
             System.out.print("COMPUTER HAND: ");
             printHand();
-            System.out.println();
-            while (getCpuBoard().getTotalValue() < 17) {
-                int chosen = r.nextInt(4);
-                if (getPlayerHands()[chosen] != null) {
+            int chosen = new Random().nextInt(4);
+            if (getPlayerHands()[chosen] != null) {
+                getCpuBoard().addCardToBoard(getPlayerHands()[chosen]);
+                System.out.println("Computer played a card");
+                System.out.print("COMPUTER BOARD: ");
+                getCpuBoard().printBoard();
+                System.out.println();
+                removeCardInPlayerHands(chosen);
 
-                    getCpuBoard().addCardToBoard(getPlayerHands()[chosen]);
-                    System.out.println("computer played card");
-                    System.out.print("COMPUTER BOARD: ");
-                    getCpuBoard().printBoard();
-
-                    removeCardInPlayerHands(chosen);
-
-
-                    if (getCpuBoard().getTotalValue() > 20) {
-                        System.out.println("bust");
-                        break;
-                    }
+                if (getCpuBoard().getTotalValue() > 20) {
+                    System.out.println("Bust! Computer's total is over 20.");
+                    break;
                 }
-                turnActive=true;
-
             }
+            turnActive = false;
         }
     }
 
@@ -230,4 +239,47 @@ public class Player {
     public void setPlayerCards(Card[] playerCards) {
         this.playerCards = playerCards;
     }
+
+    public Board getPlayerBoard() {
+        return playerBoard;
+    }
+
+    public void setPlayerBoard(Board playerBoard) {
+        this.playerBoard = playerBoard;
+    }
+
+    public Board getCpuBoard() {
+        return cpuBoard;
+    }
+
+    public void setCpuBoard(Board cpuBoard) {
+        this.cpuBoard = cpuBoard;
+    }
+
+    public Card[] getTempPlayerHands() {
+        return tempPlayerHands;
+    }
+
+    public void setTempPlayerHands(Card[] tempPlayerHands) {
+        this.tempPlayerHands = tempPlayerHands;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSetWinCount() {
+        return setWinCount;
+    }
+
+    public void setSetWinCount(int setWinCount) {
+        this.setWinCount = setWinCount;
+    }
+
+
 }
+

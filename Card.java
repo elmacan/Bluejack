@@ -1,55 +1,46 @@
 public class Card {
     private String colour;
     private int value;
-    private int sign;
-    private int special; //double and flip card
+    private boolean positiveSign; //eger boolean degeri true ise: positive, degilse negative sign
+    private int special; //double and flip card için
 
-    public Card(String colour,int value){
+    public Card(){
+    }
+
+    public Card(String colour,int value,boolean isPositiveSign){    //playerdecktekiler
         setColour(colour);
         setValue(value);
-    }
-
-    public Card(String colour,int value,int sign){
-        setColour(colour);
-        setValue(value);
-        setSign(sign);
-
+        setPositiveSign(isPositiveSign);
     }
 
 
-    public Card(int special){
-        this.special=special;
+    public Card(int special){   //özel kart için
+        this.special = special;
     }
 
-    //yapamadım karıştı sonra uğraş
-    /*public void printDeck(Card[] deck){
-        for(Card c: deck){
-            System.out.println("colour: " + getColour() + "      value: " + getValue() + " sign: " + getSign()+"    special: "+getSpecial());
-
-        }
-    } */
-
-
+    public String getColour() {
+        return colour;
+    }
 
     public void setColour(String colour) {
-
-            this.colour = colour;
-
+        this.colour = colour;
     }
-    public void setValue(int value){
-        this.value=value;
+
+    public int getValue() {
+        return value;
     }
-    public void setSign(int sign){this.sign=sign;}
 
-    public String getColour(){
-
-        return colour ;
-
+    public void setValue(int value) {
+        this.value = value;
     }
-    public int getValue(){return value;}
-    public int getSign(){return sign;}
 
+    public boolean isPositiveSign() {
+        return positiveSign;
+    }
 
+    public void setPositiveSign(boolean positiveSign) {
+        this.positiveSign = positiveSign;
+    }
 
     public int getSpecial() {
         return special;
@@ -58,7 +49,3 @@ public class Card {
     public void setSpecial(int special) {
         this.special = special;
     }
-}
-
-
-
