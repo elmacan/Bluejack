@@ -7,7 +7,7 @@ public class Player {
     private int setWinCount = 0;
     private Card[] playerCards = new Card[10];
     private Card[] playerHands = new Card[4];
-    private Card[] tempPlayerHands = new Card[4];
+
 
     private Board playerBoard = new Board();
     private Board cpuBoard = new Board();
@@ -84,6 +84,7 @@ public class Player {
     public void pickForPlayerHands() {   //cardlardan rastgele 4ünü eline alıyor
         for (int i = 0; i < 4; i++) {
             getPlayerHands()[i] = getPlayerCards()[i];
+
             //System.out.println("colour: " + playerHands[i].getColour() + "      value: " + playerHands[i].getValue() + " sign: " + playerHands[i].getSign()+"    special: "+playerHands[i].getSpecial());
         }
 
@@ -97,9 +98,10 @@ public class Player {
         }
 
     }
+
     //bir sonraki tur tahtayı yazdırırken bu kartı içini sıfırlamış olarak yazdırıyor düzeltemedim??????????????????????????
     public void removeCardInPlayerHands(int chosen) {   //kartı ın yerine ___ yazdırıyor attığını göstermek için
-                                                        //elindeki kartlar için yeni bir dizi üretip kopyalamadım
+        //elindeki kartlar için yeni bir dizi üretip kopyalamadım
 
         getPlayerHands()[chosen].setValue(0);
 
@@ -126,7 +128,7 @@ public class Player {
 
     //düzenlencek olan ana kısım
     //kartların gerçek puanları düzenlencek
-    public void playerTurn(GameDeck gd) {
+    /*public void playerTurn(GameDeck gd) {
         boolean turnActive = true;
         while (turnActive) {
             System.out.print("YOUR HAND: ");
@@ -158,7 +160,7 @@ public class Player {
                     System.out.println("Please try again: ");
                 }
             } while(numberIsInvalid);
-            
+
             switch (chosen) {
                 case 0:
                 case 1:
@@ -196,9 +198,9 @@ public class Player {
 
         }
 
-    }
+    }*/
     //düzenlencek olan ana kısım
-    public void cpuTurn(GameDeck gd) {
+   /* public void cpuTurn(GameDeck gd) {
         boolean turnActive = true;
         while (turnActive) {
             System.out.print("COMPUTER HAND: ");
@@ -218,6 +220,91 @@ public class Player {
                 }
             }
             turnActive = false;
+        }
+    }*/
+
+
+    public void playerTurn(GameDeck gd) {
+        boolean turnActive = true;
+        while (turnActive) {
+            System.out.print("YOUR HAND: ");
+            printHand();
+            System.out.println();
+            System.out.println("Choose an action:");
+            System.out.println("0. Play card 1");
+            System.out.println("1. Play card 2");
+            System.out.println("2. Play card 3");
+            System.out.println("3. Play card 4");
+            System.out.println("4. Stand");
+            System.out.println("5. Draw a card");
+
+            int chosen = -1;
+
+            do {
+                System.out.print("Enter number between 0 and 5: ");
+                try {
+                    chosen = Integer.parseInt(sc.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a number.");
+                }
+            } while (chosen < 0 || chosen > 5);
+
+            switch (chosen) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    getPlayerBoard().addCardToBoard(playerHands[chosen]);
+                    System.out.print("YOUR BOARD: ");
+                    getPlayerBoard().printBoard();
+                    System.out.println();
+                    removeCardInPlayerHands(chosen);
+                    turnActive = false;
+                    break;
+
+                case 4:
+                    System.out.println("You chose to stand.");
+                    turnActive = false;
+                    break;
+
+                case 5:
+                    System.out.println("You drew a card.");
+                    Card drawnCard = gd.getCardFromTop();
+                    getPlayerBoard().addCardToBoard(drawnCard);
+                    if (getPlayerBoard().getTotalValue() > 20) {
+                        System.out.println("Bust! Your total is over 20.");
+                        turnActive = false;
+                    }
+                    break;
+
+                default:
+                    System.out.println("Invalid input.");
+                    break;
+            }
+        }
+    }
+    public void cpuTurn(GameDeck gd) {
+        boolean turnActive = true;
+        while (turnActive) {
+            System.out.print("COMPUTER HAND: ");
+            printHand();
+
+            int chosen = new Random().nextInt(4);
+            if (getPlayerHands()[chosen] != null) {
+                getCpuBoard().addCardToBoard(getPlayerHands()[chosen]);
+                System.out.println("Computer played a card.");
+                System.out.print("COMPUTER BOARD: ");
+                getCpuBoard().printBoard();
+                System.out.println();
+                removeCardInPlayerHands(chosen);
+
+                if (getCpuBoard().getTotalValue() > 20) {
+                    System.out.println("Bust! Computer's total is over 20.");
+                    turnActive = false;
+                }
+            } else {
+                turnActive = false; // Exit the loop if CPU cannot play a card
+            }
         }
     }
 
@@ -256,13 +343,6 @@ public class Player {
         this.cpuBoard = cpuBoard;
     }
 
-    public Card[] getTempPlayerHands() {
-        return tempPlayerHands;
-    }
-
-    public void setTempPlayerHands(Card[] tempPlayerHands) {
-        this.tempPlayerHands = tempPlayerHands;
-    }
 
     public String getName() {
         return name;

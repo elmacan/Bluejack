@@ -1,6 +1,6 @@
 public class Board {
     private Player p;
-    private Card[] boardCards = new Card[9];  //tahtanın alabileceği max kart sayısı 9
+    private Card[] boardCards = new Card[9];  //If the player’s board is full (that is: 9 cards are placed on it)
     private int totalValue = 0;
     int addedCardCounter = 0;
 

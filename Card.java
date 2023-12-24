@@ -49,3 +49,19 @@ public class Card {
     public void setSpecial(int special) {
         this.special = special;
     }
+
+//    @Override
+//    public String toString() {
+//        String sign;
+//        if (isPositiveSign()) {
+//            sign = "+";
+//        } else {
+//            sign = "-";
+//        }
+//        return "colour: " + getColour() + " |  value: " + getValue() + " | sign: " + sign + " | special:" + getSpecial();
+//    }
+}
+
+
+
+
