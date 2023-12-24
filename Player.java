@@ -148,9 +148,9 @@ public class Player {
                 case 1:
                 case 2:
                 case 3:
-                    playerBoard.addCardToBoard(getPlayerHands()[chosen]);
+                    getPlayerBoard().addCardToBoard(getPlayerHands()[chosen]);
                     System.out.print("YOUR BOARD: ");
-                    playerBoard.printBoard();
+                    getPlayerBoard().printBoard();
                     System.out.println();
                     removeCardInPlayerHands(chosen);
                     turnActive=false;
@@ -163,7 +163,11 @@ public class Player {
 
                 case 5:
                     System.out.println("you drew a card");
-                    gd.getCardFromTop();
+                    getPlayerBoard().addCardToBoard(gd.getCardFromTop());
+                    if(getPlayerBoard().getTotalValue()>20){  //düzenlencek
+                        System.out.println("bust");
+                        turnActive=false;
+                    }
                     break;
 
                 default:
@@ -171,32 +175,43 @@ public class Player {
                     break;
             }
 
-           if(playerBoard.getTotalValue()>20){  //düzenlencek
-               System.out.println("bust");
-               turnActive=false;
-           }
+
 
 
         }
-	}
-	
-	public void cpuTurn(GameDeck gd){
-        while(cpuBoard.getTotalValue()<17){
-            int chosen=r.nextInt(4);
-            cpuBoard.addCardToBoard(getPlayerHands()[chosen]);
-            System.out.println("computer played card");
-            System.out.print("COMPUTER BOARD: ");
-            cpuBoard.printBoard();
 
-            removeCardInPlayerHands(chosen);
+    }
 
-            if(cpuBoard.getTotalValue()>20){
-                System.out.println("bust");
-                break;
+
+    public void cpuTurn(GameDeck gd){
+        boolean turnActive=true;
+        while(!turnActive) {
+            System.out.print("COMPUTER HAND: ");
+            printHand();
+            System.out.println();
+            while (getCpuBoard().getTotalValue() < 17) {
+                int chosen = r.nextInt(4);
+                if (getPlayerHands()[chosen] != null) {
+
+                    getCpuBoard().addCardToBoard(getPlayerHands()[chosen]);
+                    System.out.println("computer played card");
+                    System.out.print("COMPUTER BOARD: ");
+                    getCpuBoard().printBoard();
+
+                    removeCardInPlayerHands(chosen);
+
+
+                    if (getCpuBoard().getTotalValue() > 20) {
+                        System.out.println("bust");
+                        break;
+                    }
+                }
+                turnActive=true;
+
             }
-
         }
     }
+
 
 
 

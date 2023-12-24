@@ -24,8 +24,14 @@ public class Test{
         player.pickForPlayerHands();
 		
 		gd.gameDeckAfterDealing();
-        player.playerTurn(gd);
+       
 		
+		 while(true){
+            player.playerTurn(gd);
+            cpu.cpuTurn(gd);
+
+        }
+
 		
 		
 
